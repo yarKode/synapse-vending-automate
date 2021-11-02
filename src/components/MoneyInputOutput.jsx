@@ -46,8 +46,6 @@ export default function MoneyInputOutput({ type }) {
         updatedSepItem,
       ];
 
-      console.log(updatedAllItems);
-
       dispatch({
         type: GIVE_ITEM_AND_CHANGE,
         payload: {

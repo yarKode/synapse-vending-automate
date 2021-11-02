@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ITEM_PAD_VAL, RESET_PAD, SET_SELECTED_ITEM } from "../store";
 
@@ -10,7 +10,16 @@ export default function ItemsPad() {
 
   const itemOutput = useSelector((state) => state.itemOutput);
 
+  const resetPad = () => {
+    dispatch({ type: RESET_PAD, payload: "-" });
+    dispatch({ type: SET_SELECTED_ITEM, payload: "" });
+  };
+
   const typeNumValue = (payload) => {
+    if (itemPadVal === "err: wrong code") {
+      resetPad();
+      return;
+    }
     if (selectedItem) return;
     if (itemOutput) {
       alert("Please get recently bought item out of vault firstly");
@@ -20,26 +29,25 @@ export default function ItemsPad() {
     dispatch({ type: ITEM_PAD_VAL, payload });
   };
 
-  const resetPad = () => {
-    dispatch({ type: RESET_PAD, payload: "-" });
-    dispatch({ type: SET_SELECTED_ITEM, payload: "" });
-  };
-
   const submitCode = () => {
     if (selectedItem) return;
+    if (allItems.find((el) => el.code === Number(itemPadVal)).qty <= 0) {
+      alert("Chosen item is out of stock");
+      resetPad();
+      return;
+    }
+
     const correctItemCode = allItems.some(
       (el) => el.code === Number(itemPadVal)
     );
 
     if (correctItemCode) {
       dispatch({ type: SET_SELECTED_ITEM, payload: itemPadVal });
-      console.log(correctItemCode);
+
       return;
     }
     resetPad();
     dispatch({ type: ITEM_PAD_VAL, payload: "err: wrong code" });
-
-    console.log(correctItemCode);
   };
 
   return (
