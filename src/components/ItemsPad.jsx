@@ -31,7 +31,7 @@ export default function ItemsPad() {
 
   const submitCode = () => {
     if (selectedItem) return;
-    if (allItems.find((el) => el.code === Number(itemPadVal)).qty <= 0) {
+    if (allItems.find((el) => el.code === Number(itemPadVal))?.qty <= 0) {
       alert("Chosen item is out of stock");
       resetPad();
       return;
