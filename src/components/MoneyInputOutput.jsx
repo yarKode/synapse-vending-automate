@@ -55,7 +55,14 @@ export default function MoneyInputOutput({ type }) {
         },
       });
     }
-  }, [allItems, dispatch, moneyReceived, selectedItemObj, selectedItemPrice]);
+  }, [
+    allItems,
+    dispatch,
+    moneyReceived,
+    selectedItem,
+    selectedItemObj,
+    selectedItemPrice,
+  ]);
 
   return (
     <div className="pads-put-money">

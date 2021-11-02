@@ -3,12 +3,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { ITEM_PAD_VAL, RESET_PAD, SET_SELECTED_ITEM } from "../store";
 
 export default function ItemsPad() {
-  const itemPadVal = useSelector((state) => state.itemPadVal);
-  const selectedItem = useSelector((state) => state.selectedItem);
-  const dispatch = useDispatch();
-  const allItems = useSelector((state) => state.items);
+  const dataFromState = useSelector(
+    ({ itemPadVal, selectedItem, items, itemOutput }) => ({
+      itemPadVal,
+      selectedItem,
+      items,
+      itemOutput,
+    })
+  );
 
-  const itemOutput = useSelector((state) => state.itemOutput);
+  const {
+    itemPadVal,
+    selectedItem,
+    items: allItems,
+    itemOutput,
+  } = dataFromState;
+  const dispatch = useDispatch();
 
   const resetPad = () => {
     dispatch({ type: RESET_PAD, payload: "-" });
