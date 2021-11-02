@@ -121,7 +121,34 @@ body {
         .line {
           width: 90%;
           height: 5px;
+
           background-color: #252525;
+          position: relative;
+
+          .money-in {
+            height: 80px;
+            width: 80%;
+            position: absolute;
+            transform: translate(-50%);
+            left: 50%;
+            top: 3px;
+
+            background-color: darkgreen;
+
+            animation: money-in 1s ease-in;
+          }
+
+          .money-out {
+            height: 80px;
+            width: 80%;
+            position: absolute;
+            transform: translate(-50%);
+            left: 50%;
+            top: 3px;
+            background-color: darkgreen;
+
+            animation: money-out 1s;
+          }
         }
       }
     }
@@ -135,6 +162,13 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #252525;
+
+    .automate-item-container {
+      .automate-item {
+        position: relative;
+        animation: item-in 1s;
+      }
+    }
   }
 
   .automate-item-container {
@@ -155,16 +189,10 @@ body {
         line-height: 0.4;
       }
 
-      .item-name {
-      }
-
       .item-price,
       .item-code {
         font-weight: 700;
         font-size: 0.6em;
-      }
-
-      .item-code {
       }
     }
   }
@@ -174,5 +202,32 @@ body {
   .automate {
     min-width: 0;
     max-width: 500px;
+  }
+}
+
+@keyframes money-in {
+  0% {
+    height: 80px;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+@keyframes money-out {
+  0% {
+    height: 0px;
+  }
+  100% {
+    height: 80px;
+  }
+}
+
+@keyframes item-in {
+  0% {
+    left: -50px;
+  }
+  100% {
+    left: 0;
   }
 }

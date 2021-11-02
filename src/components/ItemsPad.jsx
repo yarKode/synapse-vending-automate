@@ -28,7 +28,6 @@ export default function ItemsPad() {
   const typeNumValue = (payload) => {
     if (itemPadVal === "err: wrong code") {
       resetPad();
-      return;
     }
     if (selectedItem) return;
     if (itemOutput) {
