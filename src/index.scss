@@ -1,0 +1,178 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.automate {
+  margin: 2rem auto;
+  min-width: 60%;
+  max-width: 360px;
+  height: 80vh;
+  background-color: #008e9b;
+  display: flex;
+  flex-wrap: wrap;
+
+  .automate-glass {
+    margin: 1rem;
+    width: 60%;
+    height: 70%;
+    border-radius: 0.7rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .automate-item-shelf {
+      flex-grow: 1;
+      width: 90%;
+      border-bottom: 2px solid black;
+      margin: 0.7rem;
+      display: flex;
+      justify-content: flex-start;
+      column-gap: 5%;
+    }
+  }
+
+  .pads {
+    width: 30%;
+    height: 70%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .pads-choose-item,
+    .pads-put-money,
+    .pads-get-change {
+      h5 {
+        margin: 0.7em;
+        font-size: 0.6rem;
+        color: rgb(228, 228, 228);
+        padding: 0.4rem;
+      }
+
+      background-color: #252525;
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      .pads-display {
+        width: 90%;
+        background-color: #d9d9d9;
+        margin-bottom: 0.4rem;
+
+        p {
+          margin: 0.4em;
+        }
+      }
+    }
+
+    .pads-choose-item {
+      .pads-choose-item-buttons {
+        display: flex;
+        width: 90%;
+        flex-wrap: wrap;
+        margin-bottom: 0.4rem;
+
+        .choose-item-pad-btn {
+          width: 30%;
+          border: 1px solid grey;
+          cursor: pointer;
+
+          &:hover {
+            background-color: lighten(#252525, 10);
+          }
+
+          p {
+            font-size: 0.6rem;
+            margin: 0.4rem;
+            color: white;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .pads-put-money,
+    .pads-get-change {
+      .money-input-output {
+        background-color: #008f7a;
+        width: 90%;
+        height: 20px;
+        margin-bottom: 0.4em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: lighten(#008f7a, 10);
+        }
+
+        .line {
+          width: 90%;
+          height: 5px;
+          background-color: #252525;
+        }
+      }
+    }
+  }
+
+  .item-output {
+    margin: 1rem;
+    width: 60%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #252525;
+  }
+
+  .automate-item-container {
+    width: 30%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .automate-item {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      border-radius: 0.7rem;
+      background-color: #2c73d2;
+
+      p {
+        line-height: 0.4;
+      }
+
+      .item-name {
+      }
+
+      .item-price,
+      .item-code {
+        font-weight: 700;
+        font-size: 0.6em;
+      }
+
+      .item-code {
+      }
+    }
+  }
+}
+
+@media (min-width: 500px) {
+  .automate {
+    min-width: 0;
+    max-width: 500px;
+  }
+}
