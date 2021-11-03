@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Item from "./Item";
 
 export default function ItemOutput() {
-  const itemOutput = useSelector((state) => state.itemOutput);
+  const itemOutput = useSelector((state) => state.main.itemOutput);
 
   return (
     <div className="item-output">

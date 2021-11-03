@@ -1,5 +1,3 @@
-import { createStore } from "redux";
-
 export const items = [
   { code: 1, name: "js", price: 10, qty: 5, color: "#845EC2" },
   { code: 2, name: "react", price: 12, qty: 1, color: "#2C73D2" },
@@ -26,7 +24,7 @@ export const GET_CHANGE = "GET_CHANGE";
 export const GET_ITEM = "GET_ITEM";
 export const SHOW_ADMIN = "SHOW_ADMIN";
 
-const reducer = (state = initState, action) => {
+export const mainReducer = (state = initState, action) => {
   switch (action.type) {
     case "ITEM_PAD_VALUE":
       return {
@@ -77,5 +75,3 @@ const reducer = (state = initState, action) => {
       return state;
   }
 };
-
-export const store = createStore(reducer);

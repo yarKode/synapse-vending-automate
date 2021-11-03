@@ -2,7 +2,7 @@ import "./App.css";
 import Automate from "./components/Automate";
 import RefillInterface from "./components/RefillInterface";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { store } from "./store/index";
 
 function App() {
   return (

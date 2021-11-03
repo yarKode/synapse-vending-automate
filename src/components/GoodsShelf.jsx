@@ -3,9 +3,9 @@ import Item from "./Item";
 import { useSelector } from "react-redux";
 
 export default function GoodsShelf({ itemCode }) {
-  const allItems = useSelector((state) => state.items);
+  const allItems = useSelector((state) => state.main.items);
 
-  const selectedItem = useSelector((state) => state.selectedItem);
+  const selectedItem = useSelector((state) => state.main.selectedItem);
 
   const currentItems = allItems.find((el) => el.code === itemCode);
 

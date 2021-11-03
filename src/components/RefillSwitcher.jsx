@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { SHOW_ADMIN } from "../store";
+import { SHOW_ADMIN } from "../store/mainReducer";
 
 export default function RefillSwitcher() {
   const [activeOption, setActiveOption] = useState(true);

@@ -1,10 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ITEM_PAD_VAL, RESET_PAD, SET_SELECTED_ITEM } from "../store";
+import {
+  ITEM_PAD_VAL,
+  RESET_PAD,
+  SET_SELECTED_ITEM,
+} from "../store/mainReducer";
 
 export default function ItemsPad() {
   const dataFromState = useSelector(
-    ({ itemPadVal, selectedItem, items, itemOutput }) => ({
+    ({ main: { itemPadVal, selectedItem, items, itemOutput } }) => ({
       itemPadVal,
       selectedItem,
       items,

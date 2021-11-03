@@ -208,10 +208,52 @@ body {
 
 .refill-interface {
   width: 260px;
-  height: 400px;
-  background-color: grey;
+  height: 460px;
+  background-color: lightgrey;
   position: absolute;
   bottom: 0;
+  border: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  .refill-interface-nominee-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    //margin-top: 0.2rem;
+
+    div {
+      margin-left: 0.6rem;
+      width: 20%;
+    }
+
+    .nominee-qty {
+      border: 1px solid grey;
+      border-radius: 0.4rem;
+    }
+
+    .nominee-qty-field {
+      display: flex;
+      flex-direction: column;
+      width: 30%;
+
+      input {
+        order: 2;
+      }
+
+      label {
+        order: 1;
+        font-size: 0.7em;
+      }
+    }
+  }
+
+  button {
+    display: inline-block;
+    margin: 1rem auto 0;
+    width: 50%;
+  }
 }
 
 @media (min-width: 500px) {

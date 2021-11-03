@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GET_ITEM } from "../store";
+import { GET_ITEM } from "../store/mainReducer";
 
 export default function Item({ code, name, price, color, type }) {
-  const itemOutput = useSelector((state) => state.itemOutput);
+  const itemOutput = useSelector((state) => state.main.itemOutput);
 
   const dispatch = useDispatch();
 
