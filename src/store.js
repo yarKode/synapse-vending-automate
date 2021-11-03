@@ -14,6 +14,7 @@ const initState = {
   change: 0,
   itemOutput: "",
   items,
+  refillInterface: false,
 };
 
 export const ITEM_PAD_VAL = "ITEM_PAD_VALUE";
@@ -23,6 +24,7 @@ export const PUT_MONEY = "PUT_MONEY";
 export const GIVE_ITEM_AND_CHANGE = "GIVE_ITEM_AND_CHANGE";
 export const GET_CHANGE = "GET_CHANGE";
 export const GET_ITEM = "GET_ITEM";
+export const SHOW_ADMIN = "SHOW_ADMIN";
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -65,6 +67,11 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         itemOutput: "",
+      };
+    case "SHOW_ADMIN":
+      return {
+        ...state,
+        refillInterface: !state.refillInterface,
       };
     default:
       return state;
