@@ -12,7 +12,7 @@ export default function Pads() {
   return (
     <div className="pads">
       <ItemsPad />
-      <MoneyInputOutput type="input" />
+      <MoneyInputOutput />
       <MoneyOut change={change} />
     </div>
   );

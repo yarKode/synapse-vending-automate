@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  PUT_MONEY,
-  GIVE_ITEM_AND_CHANGE,
-  GET_CHANGE,
-} from "../store/mainReducer";
+import { PUT_MONEY, GIVE_ITEM_AND_CHANGE } from "../store/mainReducer";
 
 import { GIVE_CHANGE_AND_UPDATE_BALANCE } from "../store/changeReducer";
 
-export default function MoneyInputOutput({ type }) {
+function getDepositAmount() {
+  const depositAmount = Number(prompt("Put your money", 0).trim());
+
+  if (depositAmount >= 0) return depositAmount;
+
+  alert("Incorrect type of Money (Shoul be a positive number)");
+  return;
+}
+
+export default function MoneyInputOutput() {
   const selectedItem = useSelector((state) => state.main.selectedItem);
   const moneyReceived = useSelector((state) => state.main.moneyReceived);
   const change = useSelector((state) => state.main.change);
@@ -21,34 +26,37 @@ export default function MoneyInputOutput({ type }) {
 
   const dispatch = useDispatch();
 
-  const addMoney = (payload) => {
-    dispatch({ type: PUT_MONEY, payload });
+  const addMoney = (depositAmount) => {
+    dispatch({ type: PUT_MONEY, payload: depositAmount });
   };
 
   const [moneyInVisible, setMoneyInVisible] = useState(null);
-  const [moneyOutVisible, setMoneyOutVisible] = useState(false);
 
-  const handleMoney = () => {
+  function checkIfDepositEnough() {
     if (moneyReceived >= selectedItemPrice) return;
+  }
 
-    if (type === "output" && change > 0) {
-      dispatch({ type: GET_CHANGE });
-      setMoneyOutVisible((prev) => false);
-    }
+  function checkIfItemToBuySelected() {
     if (!selectedItem) return;
-    if (type === "input") {
-      const amount = Number(prompt("Put your money", 0));
-      setMoneyInVisible((prev) => true);
-      setTimeout(() => {
-        setMoneyInVisible((prev) => false);
-      }, 1000);
+  }
 
-      if (amount >= 0) {
-        addMoney(amount);
+  function animateMoneyMove() {
+    setMoneyInVisible((prev) => true);
 
-        return;
-      }
-      alert("Incorrect type of Money (Shoul be a positive number)");
+    setTimeout(() => {
+      setMoneyInVisible((prev) => false);
+    }, 1000);
+  }
+
+  const handleMoneyInput = () => {
+    checkIfDepositEnough();
+    checkIfItemToBuySelected();
+
+    const depositAmount = getDepositAmount();
+
+    if (depositAmount) {
+      addMoney(depositAmount);
+      animateMoneyMove();
     }
   };
 
@@ -162,10 +170,6 @@ export default function MoneyInputOutput({ type }) {
           items: [...updatedAllItems],
         },
       });
-
-      if (moneyReceived - selectedItemPrice > 0) {
-        setMoneyOutVisible((prev) => true);
-      }
     }
   }, [
     allItems,
@@ -179,22 +183,16 @@ export default function MoneyInputOutput({ type }) {
 
   return (
     <div className="pads-put-money">
-      {type === "input" ? <h5>Put Money Here</h5> : <h5>Get Your Change</h5>}
+      <h5>Put Money Here</h5>
       <div className="pads-display">
-        {type === "input" ? <p>{moneyReceived}</p> : <p>{change}</p>}
+        <p>{moneyReceived}</p>
       </div>
       <div
-        className="money-input-output"
-        style={{ backgroundColor: `${selectedItem && "lightgreen"}` }}
-        onClick={handleMoney}
+        className={`money-input-output ${selectedItem && "lightgreen"}`}
+        onClick={handleMoneyInput}
       >
         <div className="line">
-          {type === "input" && moneyInVisible && (
-            <div className="money-in"></div>
-          )}
-          {type === "output" && moneyOutVisible && (
-            <div className="money-out"></div>
-          )}
+          {moneyInVisible && <div className="money-in"></div>}
         </div>
       </div>
     </div>
