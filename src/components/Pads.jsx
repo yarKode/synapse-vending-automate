@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import React from "react";
 
 import ItemsPad from "./ItemsPad";
-import MoneyInputOutput from "./MoneyInputOutput";
+import MoneyIn from "./MoneyIn";
 import MoneyOut from "./MoneyOut";
 
 export default function Pads() {
@@ -12,7 +12,7 @@ export default function Pads() {
   return (
     <div className="pads">
       <ItemsPad />
-      <MoneyInputOutput />
+      <MoneyIn />
       <MoneyOut change={change} />
     </div>
   );

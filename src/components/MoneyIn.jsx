@@ -7,7 +7,7 @@ import { GIVE_CHANGE_AND_UPDATE_BALANCE } from "../store/changeReducer";
 import { calcChangeArr } from "../utils";
 
 function getDepositAmount() {
-  const depositAmount = Number(prompt("Put your money", 0).trim());
+  const depositAmount = Number(prompt("Put your money", 0));
 
   if (depositAmount >= 0) return depositAmount;
 
@@ -15,7 +15,7 @@ function getDepositAmount() {
   return;
 }
 
-export default function MoneyInputOutput() {
+export default function MoneyIn() {
   const selectedItem = useSelector((state) => state.main.selectedItem);
   const moneyReceived = useSelector((state) => state.main.moneyReceived);
   const allItems = useSelector((state) => state.main.items);
@@ -27,9 +27,28 @@ export default function MoneyInputOutput() {
 
   const dispatch = useDispatch();
 
-  const addMoney = (depositAmount) => {
-    dispatch({ type: PUT_MONEY, payload: depositAmount });
-  };
+  const addMoney = useCallback(
+    (depositAmount) => {
+      dispatch({ type: PUT_MONEY, payload: depositAmount });
+    },
+    [dispatch]
+  );
+
+  const genUpdateChangeBalanceArr = useCallback(
+    (changeNomineesArr) => {
+      return allNominees.map((oldNomObj) => {
+        const newEntry = changeNomineesArr.find(
+          (el) => el.nominee === oldNomObj.nominee
+        ).qty;
+
+        return {
+          nominee: oldNomObj.nominee,
+          qty: Number(oldNomObj.qty) - Number(newEntry),
+        };
+      });
+    },
+    [allNominees]
+  );
 
   const updatedItemsAfterSale = useMemo(() => {
     const updatedSepItem = {
@@ -65,6 +84,13 @@ export default function MoneyInputOutput() {
     },
     [dispatch]
   );
+
+  const showErrIfNotEnoughChange = useCallback(() => {
+    alert(
+      "Not Enough Money to give you a change. Please call customer support: +4 399 399 222"
+    );
+    giveItemAndChangeUI("", allItems, 0);
+  }, [allItems, giveItemAndChangeUI]);
 
   const [moneyInVisible, setMoneyInVisible] = useState(null);
 
@@ -102,21 +128,18 @@ export default function MoneyInputOutput() {
   useEffect(() => {
     const change = moneyReceived - selectedItemPrice;
 
+    if (change > totalChangeBalance) {
+      showErrIfNotEnoughChange();
+      return;
+    }
+
     if (change >= 0) {
-      //Case when use Put too much money and we have no such amount on changeBalance
-      if (change > totalChangeBalance) {
-        alert(
-          "Not Enough Money to give you a change. Please call customer support: +4 399 399 222"
-        );
-        giveItemAndChangeUI("", allItems, 0);
-        return;
-      }
       //Calculate how many nominees needed to give a change
+      const changeNomineesArr = calcChangeArr(change, allNominees);
 
-      const changeArr = calcChangeArr(change, allNominees);
-
-      if (changeArr.every((el) => el.qty === 0)) {
-        dispatch({ type: PUT_MONEY, payload: 0 });
+      if (changeNomineesArr.every((el) => el.qty === 0)) {
+        console.log("changeNomineesArr", changeNomineesArr);
+        addMoney(-moneyReceived);
         alert(
           "We do not have a proper nominees to give you a change. Please call support"
         );
@@ -124,34 +147,14 @@ export default function MoneyInputOutput() {
         return;
       }
 
-      const newPayload = allNominees.map((oldNomObj) => {
-        const newEntry = changeArr.find(
-          (el) => el.nominee === oldNomObj.nominee
-        ).qty;
+      const updatedChangeBalanceArr =
+        genUpdateChangeBalanceArr(changeNomineesArr);
 
-        return {
-          nominee: oldNomObj.nominee,
-          qty: Number(oldNomObj.qty) - Number(newEntry),
-        };
-      });
+      giveChangeAndUpdateChangeBalance(updatedChangeBalanceArr);
 
-      console.log("newPayload", newPayload);
-
-      giveChangeAndUpdateChangeBalance(newPayload);
       giveItemAndChangeUI(selectedItemObj, updatedItemsAfterSale, change);
     }
-  }, [
-    allItems,
-    allNominees,
-    moneyReceived,
-    dispatch,
-    selectedItem,
-    selectedItemObj,
-    selectedItemPrice,
-    giveChangeAndUpdateChangeBalance,
-    giveItemAndChangeUI,
-    totalChangeBalance,
-  ]);
+  }, [moneyReceived, selectedItemPrice, totalChangeBalance]);
 
   return (
     <div className="pads-put-money">
