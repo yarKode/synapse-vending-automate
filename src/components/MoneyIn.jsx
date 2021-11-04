@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { PUT_MONEY, GIVE_ITEM_AND_CHANGE } from "../store/mainReducer";
 import { GIVE_CHANGE_AND_UPDATE_BALANCE } from "../store/changeReducer";
+import { SET_MODAL_CONTENT } from "../store/mainReducer";
 
 import { calcChangeArr } from "../utils";
 
@@ -26,6 +27,10 @@ export default function MoneyIn() {
   const allNominees = useSelector((state) => state.change.nominees);
 
   const dispatch = useDispatch();
+
+  function setModalContent(customersChangeArr) {
+    dispatch({ type: SET_MODAL_CONTENT, payload: customersChangeArr });
+  }
 
   const addMoney = useCallback(
     (depositAmount) => {
@@ -138,7 +143,6 @@ export default function MoneyIn() {
       const changeNomineesArr = calcChangeArr(change, allNominees);
 
       if (changeNomineesArr.every((el) => el.qty === 0)) {
-        console.log("changeNomineesArr", changeNomineesArr);
         addMoney(-moneyReceived);
         alert(
           "We do not have a proper nominees to give you a change. Please call support"
@@ -146,6 +150,8 @@ export default function MoneyIn() {
 
         return;
       }
+
+      setModalContent(changeNomineesArr);
 
       const updatedChangeBalanceArr =
         genUpdateChangeBalanceArr(changeNomineesArr);

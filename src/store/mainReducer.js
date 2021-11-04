@@ -1,9 +1,4 @@
-export const items = [
-  { code: 1, name: "js", price: 10, qty: 5, color: "#845EC2" },
-  { code: 2, name: "react", price: 12, qty: 1, color: "#2C73D2" },
-  { code: 3, name: "redux", price: 9, qty: 3, color: "#00C9A7" },
-  { code: 4, name: "next.js", price: 11, qty: 2, color: "#4D8076" },
-];
+import { items } from "./../configure";
 
 const initState = {
   itemPadVal: "-",
@@ -13,6 +8,11 @@ const initState = {
   itemOutput: "",
   items,
   refillInterface: false,
+  modalWindow: {
+    isShown: false,
+    title: "Your Change:",
+    content: [],
+  },
 };
 
 export const ITEM_PAD_VAL = "ITEM_PAD_VALUE";
@@ -23,6 +23,9 @@ export const GIVE_ITEM_AND_CHANGE = "GIVE_ITEM_AND_CHANGE";
 export const GET_CHANGE = "GET_CHANGE";
 export const GET_ITEM = "GET_ITEM";
 export const SHOW_ADMIN = "SHOW_ADMIN";
+export const ITEM_PAD_ERR = "ITEM_PAD_ERR";
+export const TOGGLE_MODAL = "TOGGLE_MODAL";
+export const SET_MODAL_CONTENT = "SET_MODAL_CONTENT";
 
 export const mainReducer = (state = initState, action) => {
   switch (action.type) {
@@ -34,6 +37,12 @@ export const mainReducer = (state = initState, action) => {
             ? String(action.payload)
             : String(state.itemPadVal) + action.payload,
       };
+    case "ITEM_PAD_ERR": {
+      return {
+        ...state,
+        itemPadVal: action.payload,
+      };
+    }
     case "RESET_PAD":
       return {
         ...state,
@@ -70,6 +79,22 @@ export const mainReducer = (state = initState, action) => {
       return {
         ...state,
         refillInterface: !state.refillInterface,
+      };
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        modalWindow: {
+          ...state.modalWindow,
+          isShown: !state.modalWindow.isShown,
+        },
+      };
+    case SET_MODAL_CONTENT:
+      return {
+        ...state,
+        modalWindow: {
+          ...state.modalWindow,
+          content: action.payload,
+        },
       };
     default:
       return state;

@@ -3,6 +3,7 @@ import Automate from "./components/Automate";
 import RefillInterface from "./components/RefillInterface";
 import { Provider } from "react-redux";
 import { store } from "./store/index";
+import Modal from "./components/Modal";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Provider store={store}>
         <Automate />
         <RefillInterface />
+        <Modal />
       </Provider>
     </div>
   );

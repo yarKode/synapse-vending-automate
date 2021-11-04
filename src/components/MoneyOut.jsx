@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GET_CHANGE } from "../store/mainReducer";
+import { GET_CHANGE, TOGGLE_MODAL } from "../store/mainReducer";
 import { useDispatch } from "react-redux";
 
 export default function MoneyOut({ change }) {
@@ -7,6 +7,10 @@ export default function MoneyOut({ change }) {
 
   function getChange() {
     dispatch({ type: GET_CHANGE });
+  }
+
+  function showModal() {
+    dispatch({ type: TOGGLE_MODAL });
   }
 
   function hideMoney() {
@@ -22,7 +26,9 @@ export default function MoneyOut({ change }) {
   }
 
   function handleMoneyOutClick() {
+    if (change === 0) return;
     hideMoney();
+    showModal();
     getChange();
   }
 

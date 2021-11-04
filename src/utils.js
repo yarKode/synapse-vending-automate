@@ -2,7 +2,6 @@ export function calcChangeArr(change, allNominees) {
   const Request = function (amount) {
     this.amount = amount;
     this.changeArr = [];
-    console.log("Requested: $" + amount + "\n");
   };
 
   Request.prototype = {

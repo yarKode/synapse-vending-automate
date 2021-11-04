@@ -1,11 +1,4 @@
-const nominees = [
-  { nominee: 100, qty: 3 },
-  { nominee: 50, qty: 5 },
-  { nominee: 20, qty: 6 },
-  { nominee: 10, qty: 8 },
-  { nominee: 5, qty: 10 },
-  { nominee: 1, qty: 20 },
-];
+import { nominees } from "../configure";
 
 const initState = {
   nominees,

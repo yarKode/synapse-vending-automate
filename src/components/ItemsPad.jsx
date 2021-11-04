@@ -4,7 +4,10 @@ import {
   ITEM_PAD_VAL,
   RESET_PAD,
   SET_SELECTED_ITEM,
+  ITEM_PAD_ERR,
 } from "../store/mainReducer";
+
+import { wrongCodeDisplayErr } from "../configure";
 
 export default function ItemsPad() {
   const dataFromState = useSelector(
@@ -30,7 +33,7 @@ export default function ItemsPad() {
   };
 
   const typeNumValue = (payload) => {
-    if (itemPadVal === "err: wrong code") {
+    if (!itemPadVal) {
       resetPad();
     }
     if (selectedItem) return;
@@ -60,14 +63,14 @@ export default function ItemsPad() {
       return;
     }
     resetPad();
-    dispatch({ type: ITEM_PAD_VAL, payload: "err: wrong code" });
+    dispatch({ type: ITEM_PAD_ERR, payload: false });
   };
 
   return (
     <div className="pads-choose-item">
       <h5>Choose Item</h5>
       <div className="pads-display">
-        <p>{itemPadVal}</p>
+        <p>{itemPadVal ? itemPadVal : wrongCodeDisplayErr}</p>
       </div>
       <div className="pads-choose-item-buttons">
         <div
