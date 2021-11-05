@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { GET_CHANGE, TOGGLE_MODAL } from "../store/mainReducer";
 import { useDispatch } from "react-redux";
+
+import { GET_CHANGE, TOGGLE_MODAL } from "../store/mainReducer";
+
+import PadsTitle from "./PadsTitle";
+import { padsTitles } from "../configure";
 
 export default function MoneyOut({ change }) {
   const dispatch = useDispatch();
@@ -40,7 +44,7 @@ export default function MoneyOut({ change }) {
 
   return (
     <div className="pads-put-money">
-      <h5>Get Your Change</h5>
+      <PadsTitle title={padsTitles.moneyOut} />
       <div className="pads-display">
         <p>{change}</p>
       </div>

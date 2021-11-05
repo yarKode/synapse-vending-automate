@@ -5,6 +5,10 @@ import { PUT_MONEY, GIVE_ITEM_AND_CHANGE } from "../store/mainReducer";
 import { GIVE_CHANGE_AND_UPDATE_BALANCE } from "../store/changeReducer";
 import { SET_MODAL_CONTENT } from "../store/mainReducer";
 
+import PadsTitle from "./PadsTitle";
+
+import { padsTitles } from "../configure";
+
 import { calcChangeArr } from "../utils";
 
 function getDepositAmount() {
@@ -164,7 +168,7 @@ export default function MoneyIn() {
 
   return (
     <div className="pads-put-money">
-      <h5>Put Money Here</h5>
+      <PadsTitle title={padsTitles.moneyIn} />
       <div className="pads-display">
         <p>{moneyReceived}</p>
       </div>

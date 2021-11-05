@@ -1,13 +1,17 @@
 import React from "react";
+import uniqid from "uniqid";
+
 import GoodsShelf from "./GoodsShelf";
+import { items } from "../configure";
+
+const itemsCodes = items.map((el) => el.code);
 
 export default function GlassCase() {
   return (
     <div className="automate-glass">
-      <GoodsShelf itemCode={1} />
-      <GoodsShelf itemCode={2} />
-      <GoodsShelf itemCode={3} />
-      <GoodsShelf itemCode={4} />
+      {itemsCodes.map((code) => {
+        return <GoodsShelf itemCode={code} key={uniqid()} />;
+      })}
     </div>
   );
 }

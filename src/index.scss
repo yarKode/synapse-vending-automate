@@ -31,11 +31,15 @@ body {
     .automate-item-shelf {
       flex-grow: 1;
       width: 90%;
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid grey;
       margin: 0.7rem;
       display: flex;
       justify-content: flex-start;
       column-gap: 5%;
+    }
+
+    .automate-shelf-active {
+      border-bottom: 4px solid green;
     }
   }
 

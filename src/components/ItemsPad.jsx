@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   ITEM_PAD_VAL,
   RESET_PAD,
@@ -7,7 +8,8 @@ import {
   ITEM_PAD_ERR,
 } from "../store/mainReducer";
 
-import { wrongCodeDisplayErr } from "../configure";
+import { wrongCodeDisplayErr, padsTitles } from "../configure";
+import PadsTitle from "./PadsTitle";
 
 export default function ItemsPad() {
   const dataFromState = useSelector(
@@ -26,6 +28,8 @@ export default function ItemsPad() {
     itemOutput,
   } = dataFromState;
   const dispatch = useDispatch();
+
+  const titleString = padsTitles.itemPad;
 
   const resetPad = () => {
     dispatch({ type: RESET_PAD, payload: "-" });
@@ -68,7 +72,7 @@ export default function ItemsPad() {
 
   return (
     <div className="pads-choose-item">
-      <h5>Choose Item</h5>
+      <PadsTitle title={padsTitles.itemPad} />
       <div className="pads-display">
         <p>{itemPadVal ? itemPadVal : wrongCodeDisplayErr}</p>
       </div>

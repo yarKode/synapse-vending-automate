@@ -15,3 +15,9 @@ export const items = [
 ];
 
 export const wrongCodeDisplayErr = "Err: Wrong Code";
+
+export const padsTitles = {
+  itemPad: "Choose Item",
+  moneyIn: "Put Money Honey",
+  moneyOut: "Get Your Change",
+};

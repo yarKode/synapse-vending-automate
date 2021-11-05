@@ -9,18 +9,15 @@ export default function GoodsShelf({ itemCode }) {
 
   const currentItems = allItems.find((el) => el.code === itemCode);
 
-  const highLightCurrent = Number(selectedItem) === itemCode;
+  const isShelfHighlighted = Number(selectedItem) === itemCode;
 
   const { code, name, price, qty, color } = currentItems;
 
   return (
     <div
-      className="automate-item-shelf"
-      style={{
-        borderBottom: `${
-          highLightCurrent ? "4px solid green" : "2px solid grey"
-        }`,
-      }}
+      className={`automate-item-shelf ${
+        isShelfHighlighted && "automate-shelf-active"
+      }`}
     >
       <div className="automate-item-container">
         {qty <= 0 ? null : (
